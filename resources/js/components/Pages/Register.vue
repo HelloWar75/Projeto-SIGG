@@ -1,9 +1,8 @@
 <template>
     <div class="container">
-        <div class="card card-default">
-            <div class="card-header">Registro</div>
-
-            <div class="card-body">
+        <div class="row">
+            <div class="offset-4 col-md-4" style="margin-top: 25vh;">
+                <h3>Registrar-se</h3>
                 <!-- Em caso de erro! -->
                 <div class="alert alert-danger" v-if="has_error && !success">
                     <p v-if="error == 'registration_validation_error'">Erro de validação do registro</p>
@@ -11,16 +10,16 @@
                 </div>
 
                 <form autocomplete="off" @submit.prevent="register" v-if="!success" method="post">
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" class="form-control" placeholder="seu@email.com.br" v-model="email">
-                        <span class="help-block" v-if="has_error && errors.email">{{ errors.email }}</span>
+                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.username }">
+                        <label for="username">E-mail</label>
+                        <input type="text" id="username" class="form-control" placeholder="seu usuario" v-model="username">
+                        <span class="help-block" v-if="has_error && errors.username">Campo de usuário é requerido</span>
                     </div>
 
                     <div class="form-group" v-bind:class="{ 'has_error': has_error && errors.password }">
                         <label for="password">Senha</label>
                         <input type="password" id="password" class="form-control" v-model="password">
-                        <span class="help-block" v-if="has_error && errors.password">{{ errors.password }}</span>
+                        <span class="help-block" v-if="has_error && errors.password">Campo de senha é requerido!</span>
                     </div>
 
                     <div class="form-group" v-bind:class="{ 'has_error': has_error && errors.password }">
@@ -28,10 +27,9 @@
                         <input type="password" id="password_confirmation" class="form-control" v-model="password_confirmation">
                     </div>
 
-                    <button type="submit" class="btn btn-default">Registrar-se</button>
+                    <button type="submit" class="btn btn-primary">Registrar-se</button>
 
                 </form>
-
             </div>
         </div>
     </div>
@@ -43,7 +41,7 @@
         data() {
             return {
                 name: '',
-                email: '',
+                username: '',
                 password: '',
                 password_confirmation: '',
                 has_error: false,
@@ -58,13 +56,13 @@
                 var app = this
                 this.$auth.register({
                     data: {
-                        email: app.email,
+                        username: app.username,
                         password: app.password,
                         password_confirmation: app.password_confirmation
                     },
                     success: function () {
                         app.success = true
-                        this.$route.push({
+                        this.$router.push({
                             name: 'login',
                             params: {
                                 successRegistrationRedirect: true

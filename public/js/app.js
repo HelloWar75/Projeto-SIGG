@@ -3397,6 +3397,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
   data: function data() {
@@ -3428,6 +3429,11 @@ __webpack_require__.r(__webpack_exports__);
         },
         rememberMe: true,
         fetchUser: true
+      });
+    },
+    gotoRegister: function gotoRegister() {
+      this.$router.push({
+        name: 'register'
       });
     }
   }
@@ -3481,14 +3487,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Register",
   data: function data() {
     return {
       name: '',
-      email: '',
+      username: '',
       password: '',
       password_confirmation: '',
       has_error: false,
@@ -3502,13 +3506,13 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       this.$auth.register({
         data: {
-          email: app.email,
+          username: app.username,
           password: app.password,
           password_confirmation: app.password_confirmation
         },
         success: function success() {
           app.success = true;
-          this.$route.push({
+          this.$router.push({
             name: 'login',
             params: {
               successRegistrationRedirect: true
@@ -40487,6 +40491,20 @@ var render = function() {
                 "button",
                 { staticClass: "btn btn-primary", attrs: { type: "submit" } },
                 [_vm._v("Logar-se")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-warning float-right",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.gotoRegister($event)
+                    }
+                  }
+                },
+                [_vm._v("Registrar-se")]
               )
             ]
           )
@@ -40518,165 +40536,180 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "card card-default" }, [
-      _c("div", { staticClass: "card-header" }, [_vm._v("Registro")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _vm.has_error && !_vm.success
-          ? _c("div", { staticClass: "alert alert-danger" }, [
-              _vm.error == "registration_validation_error"
-                ? _c("p", [_vm._v("Erro de validação do registro")])
-                : _c("p", [
-                    _vm._v(
-                      "Erro, problema ao efetuar o registro no momento, por favor tentar mais tarde e caso o problema persista entrar em contato com o administrador."
-                    )
-                  ])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.success
-          ? _c(
-              "form",
-              {
-                attrs: { autocomplete: "off", method: "post" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.register($event)
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        {
+          staticClass: "offset-4 col-md-4",
+          staticStyle: { "margin-top": "25vh" }
+        },
+        [
+          _c("h3", [_vm._v("Registrar-se")]),
+          _vm._v(" "),
+          _vm.has_error && !_vm.success
+            ? _c("div", { staticClass: "alert alert-danger" }, [
+                _vm.error == "registration_validation_error"
+                  ? _c("p", [_vm._v("Erro de validação do registro")])
+                  : _c("p", [
+                      _vm._v(
+                        "Erro, problema ao efetuar o registro no momento, por favor tentar mais tarde e caso o problema persista entrar em contato com o administrador."
+                      )
+                    ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.success
+            ? _c(
+                "form",
+                {
+                  attrs: { autocomplete: "off", method: "post" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.register($event)
+                    }
                   }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": _vm.has_error && _vm.errors.email }
-                  },
-                  [
-                    _c("label", { attrs: { for: "email" } }, [
-                      _vm._v("E-mail")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.email,
-                          expression: "email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "email",
-                        id: "email",
-                        placeholder: "seu@email.com.br"
-                      },
-                      domProps: { value: _vm.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.email = $event.target.value
-                        }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group",
+                      class: {
+                        "has-error": _vm.has_error && _vm.errors.username
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.has_error && _vm.errors.email
-                      ? _c("span", { staticClass: "help-block" }, [
-                          _vm._v(_vm._s(_vm.errors.email))
-                        ])
-                      : _vm._e()
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { has_error: _vm.has_error && _vm.errors.password }
-                  },
-                  [
-                    _c("label", { attrs: { for: "password" } }, [
-                      _vm._v("Senha")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.password,
-                          expression: "password"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "password", id: "password" },
-                      domProps: { value: _vm.password },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    },
+                    [
+                      _c("label", { attrs: { for: "username" } }, [
+                        _vm._v("E-mail")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.username,
+                            expression: "username"
                           }
-                          _vm.password = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.has_error && _vm.errors.password
-                      ? _c("span", { staticClass: "help-block" }, [
-                          _vm._v(_vm._s(_vm.errors.password))
-                        ])
-                      : _vm._e()
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { has_error: _vm.has_error && _vm.errors.password }
-                  },
-                  [
-                    _c("label", { attrs: { for: "password_confirmation" } }, [
-                      _vm._v("Confirmar a senha")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.password_confirmation,
-                          expression: "password_confirmation"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "password", id: "password_confirmation" },
-                      domProps: { value: _vm.password_confirmation },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "username",
+                          placeholder: "seu usuario"
+                        },
+                        domProps: { value: _vm.username },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.username = $event.target.value
                           }
-                          _vm.password_confirmation = $event.target.value
                         }
-                      }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-default", attrs: { type: "submit" } },
-                  [_vm._v("Registrar-se")]
-                )
-              ]
-            )
-          : _vm._e()
-      ])
+                      }),
+                      _vm._v(" "),
+                      _vm.has_error && _vm.errors.username
+                        ? _c("span", { staticClass: "help-block" }, [
+                            _vm._v("Campo de usuário é requerido")
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group",
+                      class: { has_error: _vm.has_error && _vm.errors.password }
+                    },
+                    [
+                      _c("label", { attrs: { for: "password" } }, [
+                        _vm._v("Senha")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.password,
+                            expression: "password"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "password", id: "password" },
+                        domProps: { value: _vm.password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.password = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.has_error && _vm.errors.password
+                        ? _c("span", { staticClass: "help-block" }, [
+                            _vm._v("Campo de senha é requerido!")
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group",
+                      class: { has_error: _vm.has_error && _vm.errors.password }
+                    },
+                    [
+                      _c("label", { attrs: { for: "password_confirmation" } }, [
+                        _vm._v("Confirmar a senha")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.password_confirmation,
+                            expression: "password_confirmation"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "password",
+                          id: "password_confirmation"
+                        },
+                        domProps: { value: _vm.password_confirmation },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.password_confirmation = $event.target.value
+                          }
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Registrar-se")]
+                  )
+                ]
+              )
+            : _vm._e()
+        ]
+      )
     ])
   ])
 }
@@ -56445,8 +56478,7 @@ var routes = [{
   component: _components_Pages_Register__WEBPACK_IMPORTED_MODULE_3__["default"],
   meta: {
     auth: false
-  },
-  redirect: '/login'
+  }
 }, {
   path: '/login',
   name: 'login',

@@ -20,6 +20,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Logar-se</button>
+                    <button class="btn btn-warning float-right" @click.prevent="gotoRegister">Registrar-se</button>
 
                 </form>
             </div>
@@ -60,6 +61,11 @@
                     },
                     rememberMe: true,
                     fetchUser: true
+                })
+            },
+            gotoRegister() {
+                this.$router.push({
+                    name: 'register'
                 })
             }
         }

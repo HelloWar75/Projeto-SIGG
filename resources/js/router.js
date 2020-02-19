@@ -22,8 +22,7 @@ const routes = [
         component: Register,
         meta: {
             auth: false
-        },
-        redirect: '/login'
+        }
     },
     {
         path: '/login',
