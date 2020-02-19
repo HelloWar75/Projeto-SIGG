@@ -55812,7 +55812,7 @@ vue__WEBPACK_IMPORTED_MODULE_3___default.a.router = _router__WEBPACK_IMPORTED_MO
 vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]); // Configurando autenticação do VUE
 
 vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_5___default.a, axios__WEBPACK_IMPORTED_MODULE_1___default.a);
-axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.baseURL = "http://127.0.0.1:8000/api";
+axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.baseURL = "api";
 vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(_websanova_vue_auth__WEBPACK_IMPORTED_MODULE_4___default.a, _auth__WEBPACK_IMPORTED_MODULE_8__["default"]); // Carregando Index
 
 vue__WEBPACK_IMPORTED_MODULE_3___default.a.component('index', _components_Index__WEBPACK_IMPORTED_MODULE_7__["default"]);
