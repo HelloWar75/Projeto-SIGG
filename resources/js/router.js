@@ -11,10 +11,10 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home,
         meta: {
-            auth: undefined // Rota Publica
-        }
+            auth: undefined, // Rota Publica
+        },
+        redirect: '/login'
     },
     {
         path: '/register',
@@ -22,7 +22,8 @@ const routes = [
         component: Register,
         meta: {
             auth: false
-        }
+        },
+        redirect: '/login'
     },
     {
         path: '/login',
@@ -54,7 +55,8 @@ const routes = [
                 }
             },
             forbiddenRedirect: '/403'
-        }
+        },
+        redirect: '/login'
     }
 ];
 

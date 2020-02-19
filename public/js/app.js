@@ -3253,41 +3253,106 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Like",
   data: function data() {
     return {
       isLikeReadOnly: false,
-      isDLikeReadOnly: false
+      isDLikeReadOnly: false,
+      likedNum: 0,
+      dlikedNum: 0
     };
   },
   mounted: function mounted() {
     this.isLiked();
+    this.countLikes();
+    this.timeout();
   },
   methods: {
-    isLiked: function isLiked() {
+    timeout: function timeout() {
       var _this = this;
+
+      setTimeout(function () {
+        _this.countLikes();
+
+        _this.timeout();
+      }, 2000);
+    },
+    isLiked: function isLiked() {
+      var _this2 = this;
 
       this.$http({
         url: "like/is_liked",
         method: 'GET'
       }).then(function (res) {
         if (res.data.status === "success") {
-          _this.isLikeReadOnly = false;
-          _this.isDLikeReadOnly = false;
+          _this2.isLikeReadOnly = false;
+          _this2.isDLikeReadOnly = false;
 
           if (res.data.isLiked) {
-            _this.isLikeReadOnly = true;
-            _this.isDLikeReadOnly = true;
+            _this2.isLikeReadOnly = true;
+            _this2.isDLikeReadOnly = true;
           }
         }
       }, function () {
-        _this.isLikeReadOnly = true;
-        _this.isDLikeReadOnly = true;
+        _this2.isLikeReadOnly = true;
+        _this2.isDLikeReadOnly = true;
+
+        _this2.isLiked();
       });
     },
     like: function like() {
-      var app = this;
+      var _this3 = this;
+
+      this.$http({
+        url: "like",
+        method: 'GET'
+      }).then(function (res) {
+        if (res.data.status === "success") {
+          _this3.isLikeReadOnly = true;
+          _this3.isDLikeReadOnly = true;
+          _this3.likedNum += 1;
+        }
+      }, function () {
+        console.log("ERRO");
+      });
+    },
+    dlike: function dlike() {
+      var _this4 = this;
+
+      this.$http({
+        url: "dlike",
+        method: 'GET'
+      }).then(function (res) {
+        if (res.data.status === "success") {
+          _this4.isLikeReadOnly = true;
+          _this4.isDLikeReadOnly = true;
+          _this4.dlikedNum += 1;
+        }
+      }, function () {
+        console.log("ERRO");
+      });
+    },
+    countLikes: function countLikes() {
+      var _this5 = this;
+
+      this.$http({
+        url: "likes",
+        method: "GET"
+      }).then(function (res) {
+        if (res.data.status === "success") {
+          _this5.dlikedNum = res.data.dlikedNum;
+          _this5.likedNum = res.data.likedNum;
+        }
+      }, function () {
+        console.log("ERRO NA CONTAGEM!");
+      });
     }
   }
 });
@@ -40272,34 +40337,45 @@ var render = function() {
           "button",
           {
             staticClass: "btn btn-danger",
-            attrs: { type: "button", disabled: _vm.isDLikeReadOnly }
+            attrs: { disabled: _vm.isDLikeReadOnly },
+            on: { click: _vm.dlike }
           },
           [_vm._v("Não curtir")]
         )
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "row", staticStyle: { "margin-top": "10vh" } }, [
+      _c("div", { staticClass: "offset-4 col-md-4" }, [
+        _vm._v("\n            Total Curtidas: " + _vm._s(_vm.likedNum) + " "),
+        _c("br"),
+        _vm._v(
+          "\n            Total Não Curtidas: " +
+            _vm._s(_vm.dlikedNum) +
+            "\n        "
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row", staticStyle: { "margin-top": "5vh" } }, [
+      _c("div", { staticClass: "offset-4 col-md-4" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-warning",
+            on: {
+              click: function($event) {
+                return _vm.$auth.logout()
+              }
+            }
+          },
+          [_vm._v("Sair")]
+        )
+      ])
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "row", staticStyle: { "margin-top": "10vh" } },
-      [
-        _c("div", { staticClass: "offset-4 col-md-4" }, [
-          _vm._v("\n            Total Curtidas: 10 "),
-          _c("br"),
-          _vm._v("\n            Total Não Curtidas: 5\n        ")
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -55786,7 +55862,7 @@ var config = {
   logoutData: {
     url: 'auth/logout',
     method: 'POST',
-    redirect: '/',
+    redirect: '/login',
     makeRequest: true
   },
   fetchData: {
@@ -56358,18 +56434,19 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [{
   path: '/',
   name: 'home',
-  component: _components_Pages_Home__WEBPACK_IMPORTED_MODULE_1__["default"],
   meta: {
     auth: undefined // Rota Publica
 
-  }
+  },
+  redirect: '/login'
 }, {
   path: '/register',
   name: 'register',
   component: _components_Pages_Register__WEBPACK_IMPORTED_MODULE_3__["default"],
   meta: {
     auth: false
-  }
+  },
+  redirect: '/login'
 }, {
   path: '/login',
   name: 'login',
@@ -56398,7 +56475,8 @@ var routes = [{
       }
     },
     forbiddenRedirect: '/403'
-  }
+  },
+  redirect: '/login'
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   history: true,
