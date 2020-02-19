@@ -15,10 +15,27 @@ class UserTableSeeder extends Seeder
     {
         //
         User::create([
-            'name' => 'Administrador',
-            'email' => 'administrador@admin.com',
-            'password' => Hash::make('admin'),
-            'role' => 2
+            'id' => 1,
+            'name' => 'Rafael',
+            'username' => 'rafael',
+            'password' => bcrypt('senha123'),
+            'role' => 1
+        ]);
+
+        User::create([
+            'id' => 2,
+            'name' => 'Luis',
+            'username' => 'luis',
+            'password' => bcrypt('senha123'),
+            'role' => 1
+        ]);
+
+        User::create([
+            'id' => 3,
+            'name' => 'Pedro',
+            'username' => 'pedro',
+            'password' => bcrypt('senha123'),
+            'role' => 1
         ]);
     }
 }

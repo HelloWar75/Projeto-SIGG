@@ -1,9 +1,10 @@
 <template>
     <div class="container">
-        <div class="card card-default">
-            <div class="card-header">Login</div>
+        <div class="row">
+            <div class="offset-4 col-md-4" style="margin-top: 25vh;">
 
-            <div class="card-body">
+                <h3>Login</h3>
+
                 <div class="alert alert-danger" v-if="has_error">
                     <p>Error ao efetuar o login por favor verificar seus dados de login!</p>
                 </div>
@@ -11,16 +12,14 @@
                 <form autocomplete="off" @submit.prevent="login" action="post">
 
                     <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" class="form-control" placeholder="seu@email.com.br" v-model="email" required>
+                        <input type="text" id="username" class="form-control" placeholder="seu usuario" v-model="username" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Senha</label>
                         <input type="password" id="password" class="form-control" v-model="password" required>
                     </div>
 
-                    <button type="submit" class="btn btn-default">Logar-se</button>
+                    <button type="submit" class="btn btn-primary">Logar-se</button>
 
                 </form>
             </div>
@@ -33,7 +32,7 @@
         name: "Login",
         data() {
             return {
-                email: null,
+                username: null,
                 password: null,
                 has_error: false
             }
@@ -47,7 +46,7 @@
                 var app = this
                 this.$auth.login({
                     params: {
-                        email: app.email,
+                        username: app.username,
                         password: app.password
                     },
                     success: function() {

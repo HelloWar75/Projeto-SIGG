@@ -32,4 +32,5 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Rotas de usuário
     Route::get('users', 'UserController@index')->middleware('isAdmin');
     Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
+    Route::get('like/is_liked', 'LikeController@isLiked');
 });
