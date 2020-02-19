@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Exibe o welcome.blade.php para todas rotas exceto API
+Route::get('/{any?}', function (){
+    return view('welcome');
+})->where('any', '^(?!api\/)[\/\w\.-]*');
