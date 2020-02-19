@@ -56494,21 +56494,6 @@ var routes = [{
   meta: {
     auth: true
   }
-}, //Painel de admin
-{
-  path: '/admin',
-  name: 'admin.panel',
-  component: _components_Pages_AdminPanel__WEBPACK_IMPORTED_MODULE_5__["default"],
-  meta: {
-    auth: {
-      roles: 2,
-      redirect: {
-        name: 'login'
-      }
-    },
-    forbiddenRedirect: '/403'
-  },
-  redirect: '/login'
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   history: true,

@@ -40,22 +40,6 @@ const routes = [
         meta: {
             auth: true
         }
-    },
-    //Painel de admin
-    {
-        path: '/admin',
-        name: 'admin.panel',
-        component: AdminPanel,
-        meta: {
-            auth: {
-                roles: 2,
-                redirect: {
-                    name: 'login'
-                }
-            },
-            forbiddenRedirect: '/403'
-        },
-        redirect: '/login'
     }
 ];
 
