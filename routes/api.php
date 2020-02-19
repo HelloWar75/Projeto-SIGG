@@ -13,6 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::prefix('auth')->group(function () {
+    Route::post('register', 'AuthController@register');         // Registro
+    Route::post('login', 'AuthController@login');               // Login
+    Route::get('refresh', 'AuthController@refresh');            // Refresh do token
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('user', 'AuthController@user');              // Obter dados do usuário
+        Route::post('logout', 'AuthController@logout');         // Logout
+    });
 });
