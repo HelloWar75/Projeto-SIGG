@@ -3,6 +3,10 @@
 Para efetuar a instalão do projeto é preciso configurar o banco de dados no arquivo .env,
 após isso deve-se digitar no terminal.
 
+php composer install
+npm install
+npm run dev
+
 php artisan migrate
 
 depois
